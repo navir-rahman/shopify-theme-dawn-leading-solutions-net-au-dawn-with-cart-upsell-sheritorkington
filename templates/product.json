@@ -85,6 +85,12 @@
           "settings": {
             "share_label": "Share"
           }
+        },
+        "9a1e6edb-e31c-420c-b00d-6a8688be71a2": {
+          "type": "text2",
+          "settings": {
+            "productdownloadable_1_file": "product.metafields.custom.downloadable_1_file"
+          }
         }
       },
       "block_order": [
@@ -100,7 +106,8 @@
         "collapsible-row-1",
         "e3a9d649-0394-4323-aa52-d84fc31887f1",
         "fa62af69-7350-44ce-a20a-4f3823dbb433",
-        "share"
+        "share",
+        "9a1e6edb-e31c-420c-b00d-6a8688be71a2"
       ],
       "settings": {
         "enable_sticky_info": true,
