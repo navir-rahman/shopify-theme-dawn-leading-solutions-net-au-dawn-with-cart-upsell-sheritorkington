@@ -807,9 +807,15 @@
                     <img alt="" src="{{ product.metafields.custom.spec_sheet_icon.value | image_url }}" width="100%">
                   </a>
               {% endif %}
+
+              {% liquid
+                capture link
+
+                assign link= section.settings.productdownloadable_1_file
+             endcapture%}
               {% if product.metafields.custom.downloadable_1_img.value %}
                 <a download target="_blank" href="//{{ product.metafields.custom.downloadable_1_file | metafield_text }}">
-                  <img alt="" src="{{ product.metafields.custom.downloadable_1_img.value | image_url }}" width="100%">
+                  <img alt="" src="{{ link | image_url }}" width="100%">
                 </a>
             {% endif %}
                 
@@ -1340,6 +1346,13 @@
           "default": "Collapsible row",
           "info": "t:sections.main-product.blocks.collapsible_tab.settings.heading.info",
           "label": "t:sections.main-product.blocks.collapsible_tab.settings.heading.label"
+        },
+        {
+          "type": "text",
+          "id": "productdownloadable_1_file",
+          "default": "product.metafields.custom.downloadable_1_file",
+          "info": "t:sections.main-product.blocks.collapsible_tab.settings.heading.info",
+          "label": "product.metafields"
         },
         {
           "type": "select",
