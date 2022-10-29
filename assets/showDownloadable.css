@@ -1,0 +1,15 @@
+/* bv_downloadable */
+.bv_downloadable{
+    margin-top: 6rem;
+}
+.bv_downloadable_img{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+.bv_downloadable_img a{
+    margin: auto;
+    max-width: 150px;
+}
+.bv_downloadable_img a img{
+  padding:5px;
+}
