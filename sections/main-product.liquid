@@ -807,9 +807,9 @@
                     <img alt="" src="{{ product.metafields.custom.spec_sheet_icon.value | image_url }}" width="100%">
                   </a>
               {% endif %}
-              {% if product.metafields.product.downloadable_1_img.value %}
-                <a download target="_blank" href="//{{ product.metafields.product.downloadable_1_file | metafield_text }}">
-                  <img alt="" src="{{ product.metafields.product.downloadable_1_img.value | image_url }}" width="100%">
+              {% if product.metafields.custom.downloadable_1_img.value %}
+                <a download target="_blank" href="//{{ custom.metafields.product.downloadable_1_file | metafield_text }}">
+                  <img alt="" src="{{ product.metafields.custom.downloadable_1_img.value | image_url }}" width="100%">
                 </a>
             {% endif %}
                 
