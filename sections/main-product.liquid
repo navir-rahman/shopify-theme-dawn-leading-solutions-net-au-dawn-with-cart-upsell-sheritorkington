@@ -328,6 +328,15 @@
                   </h2>
                 </a>
               </div>
+
+            {%- when 'stock'%}
+              <div id='bv_stock' style="">
+              {%- if product.selected_or_first_available_variant.available -%}
+                  <svg class="icon icon-checkbox-checked" height="20" version="1.1" viewbox="0 0 32 32" width="20" xmlns="http://www.w3.org/2000/svg"> <path d="M28 0h-24c-2.2 0-4 1.8-4 4v24c0 2.2 1.8 4 4 4h24c2.2 0 4-1.8 4-4v-24c0-2.2-1.8-4-4-4zM14 24.828l-7.414-7.414 2.828-2.828 4.586 4.586 9.586-9.586 2.828 2.828-12.414 12.414z"> </path></svg> &nbsp;<span> In Stock</span>
+                {%-else-%}
+                  <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="20" viewBox="0 0 122.879 122.879" enable-background="new 0 0 122.879 122.879" xml:space="preserve"><g><path fill-rule="evenodd" clip-rule="evenodd" fill="#FF4141" d="M61.44,0c33.933,0,61.439,27.507,61.439,61.439 s-27.506,61.439-61.439,61.439C27.507,122.879,0,95.372,0,61.439S27.507,0,61.44,0L61.44,0z M73.451,39.151 c2.75-2.793,7.221-2.805,9.986-0.027c2.764,2.776,2.775,7.292,0.027,10.083L71.4,61.445l12.076,12.249 c2.729,2.77,2.689,7.257-0.08,10.022c-2.773,2.765-7.23,2.758-9.955-0.013L61.446,71.54L49.428,83.728 c-2.75,2.793-7.22,2.805-9.986,0.027c-2.763-2.776-2.776-7.293-0.027-10.084L51.48,61.434L39.403,49.185 c-2.728-2.769-2.689-7.256,0.082-10.022c2.772-2.765,7.229-2.758,9.953,0.013l11.997,12.165L73.451,39.151L73.451,39.151z"/></g></svg> &nbsp;<span> Out of Stock</span>
+                {%endif%}
+              </div>
             {%- when 'price' -%}
               <div class="no-js-hidden" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                 {%- render 'price', product: product, use_variant: true, show_badges: true, price_class: 'price--large' -%}
@@ -780,7 +789,7 @@
                   {%- if block.settings.enable_quick_add -%}
                     <link rel="stylesheet" href="{{ 'quick-add.css' | asset_url }}" media="print" onload="this.media='all'">
                     <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
-                  {%- endif -%}
+                  {%- endif -%} 
                 </product-recommendations>
 
         {%- when 'showDownloadable' -%}
@@ -798,6 +807,11 @@
                     <img alt="" src="{{ product.metafields.custom.spec_sheet_icon.value | image_url }}" width="100%">
                   </a>
               {% endif %}
+              {% if product.metafields.product.downloadable_icon1.value %}
+                <a download target="_blank" href="//{{ product.metafields.product.downloadable_file1 | metafield_text }}">
+                  <img alt="" src="{{ product.metafields.product.downloadable_icon1.value | image_url }}" width="100%">
+                </a>
+            {% endif %}
                 
 <!-- use meta data -->
               </div>
@@ -1224,6 +1238,11 @@
     {
       "type": "title",
       "name": "t:sections.main-product.blocks.title.name",
+      "limit": 1
+    },
+    {
+      "type": "stock",
+      "name": "stock",
       "limit": 1
     },
     {
