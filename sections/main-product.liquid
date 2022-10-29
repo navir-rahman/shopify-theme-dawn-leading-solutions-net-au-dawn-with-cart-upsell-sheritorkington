@@ -808,7 +808,7 @@
                   </a>
               {% endif %}
               {% if product.metafields.custom.downloadable_1_img.value %}
-                <a download target="_blank" href="//{{ custom.metafields.product.downloadable_1_file | metafield_text }}">
+                <a download target="_blank" href="//{{ product.metafields.custom.downloadable_1_file | metafield_text }}">
                   <img alt="" src="{{ product.metafields.custom.downloadable_1_img.value | image_url }}" width="100%">
                 </a>
             {% endif %}
