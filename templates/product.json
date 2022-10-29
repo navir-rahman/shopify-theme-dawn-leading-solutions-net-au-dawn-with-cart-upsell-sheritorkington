@@ -74,6 +74,12 @@
           "settings": {
           }
         },
+        "fa62af69-7350-44ce-a20a-4f3823dbb433": {
+          "type": "showDownloadable",
+          "settings": {
+            "showDownloadableMetafields": true
+          }
+        },
         "share": {
           "type": "share",
           "settings": {
@@ -93,6 +99,7 @@
         "collapsible-row-2",
         "collapsible-row-1",
         "e3a9d649-0394-4323-aa52-d84fc31887f1",
+        "fa62af69-7350-44ce-a20a-4f3823dbb433",
         "share"
       ],
       "settings": {
