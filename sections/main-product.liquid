@@ -813,11 +813,11 @@
 
                 assign link= section.settings.productdownloadable_1_file
              endcapture%}
-              {% if product.metafields.custom.downloadable_1_img.value %}
+
                 <a download target="_blank" href="//{{ product.metafields.custom.downloadable_1_file | metafield_text }}">
                   <img alt="" src="{{ link | image_url }}" width="100%">
                 </a>
-            {% endif %}
+
                 
 <!-- use meta data -->
               </div>
