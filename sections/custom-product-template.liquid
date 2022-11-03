@@ -1,0 +1,491 @@
+<!-- product section  -->
+{%  comment %}
+<style>
+   @font-face {
+  font-family: "Lato";
+  src: url({{ "Lato-Black" | asset_url }}) format("woff2"),
+       url({{ "Lato-Bold" | asset_url }}) format("woff2");
+       url({{ "Lato-Black" | asset_url }}) format("woff2");
+       url({{ "Lato-Light" | asset_url }}) format("woff2");
+       url({{ "Lato-Regular" | asset_url }}) format("woff2");
+   }
+</style>
+{% endcomment %}
+<div class="bv_container" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}"
+    data-section-type="product" data-enable-history-state="true" data-ajax-enabled="{{ settings.enable_ajax }}">
+    {% comment %}
+    Get first variant, or deep linked one
+    {% endcomment %}
+    {% assign current_variant = product.selected_or_first_available_variant %}
+    {%- assign featured_media = product.selected_or_first_available_variant.featured_media | default:
+    product.featured_media -%}
+  
+    {{ 'bv_template_css.css' | asset_url | stylesheet_tag }}
+  
+    <div class="bv_product_container">
+  
+      <div class="bv_media">
+  
+        <style>
+          /* fancybox css */
+  
+          #mainCarousel {
+            width: 100%;
+            margin: 0 auto 1rem auto;
+  
+            --carousel-button-color: #170724;
+            --carousel-button-bg: #fff;
+            --carousel-button-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%),
+              0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+  
+            --carousel-button-svg-width: 20px;
+            --carousel-button-svg-height: 20px;
+            --carousel-button-svg-stroke-width: 2.5;
+          }
+  
+          #mainCarousel .carousel__slide {
+            width: 100%;
+            padding: 0;
+          }
+  
+          #mainCarousel .carousel__button.is-prev {
+            left: -1.5rem;
+          }
+  
+          #mainCarousel .carousel__button.is-next {
+            right: -1.5rem;
+          }
+  
+          #mainCarousel .carousel__button:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px #A78BFA;
+          }
+  
+          #thumbCarousel .carousel__slide {
+            opacity: 0.5;
+            padding: 0;
+            margin: 0.25rem;
+            width: 80px;
+            height: min-content;
+          }
+  
+          #thumbCarousel .carousel__slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+          }
+  
+          #thumbCarousel .carousel__slide.is-nav-selected {
+            opacity: 1;
+          }
+  
+          .carousel__button {
+            background: #ffffff96;
+          }
+  
+          .carousel__button:hover {
+            background: #ffffff;
+          }
+  
+          /* tailwind */
+          .max-w-xl {
+            max-width: 36rem;
+          }
+  
+          .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+          }
+  
+          .max-w-5xl {
+            max-width: 64rem;
+          }
+  
+          .w-10\/12 {
+            width: 83.333333%;
+          }
+  
+          .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+          }
+  
+  
+          #mainCarousel .carousel__button.is-next {
+            right: 0.5rem;
+          }
+  
+          #mainCarousel .carousel__button.is-prev {
+            left: 0.5rem;
+          }
+          .carousel__button.is-close {
+            top:45px;
+            z-index: 30;
+            width: 20px;
+            height: 20px;
+          }
+          .fancybox__toolbar {
+            top: 25px;
+          }
+          .fancybox__backdrop {
+            background: #0000004f;
+          }
+        </style>
+  
+  
+        <div class="carasul_container">
+  
+          <div class="mainCarousel_container">
+            <div id="mainCarousel" class="carousel w-10/12 max-w-5xl mx-auto">
+  
+              {%- for media in product.media -%}
+              {% case media.media_type %}
+  
+              {% when 'image' %}
+              <div class="carousel__slide" data-src="{{ media | image_url }}" data-fancybox="gallery">
+                <img onclick="" src="{{ media | image_url }}" class="bv_featured_img" width="450" height="450" alt="">
+              </div>
+  
+              {% when 'external_video' %}
+              <div class="carousel__slide" data-src="{{ media | image_url }}" data-fancybox="gallery">
+                {{ media | external_video_tag: controls: true, class: 'bv_featured_midea', image_size: '450x' }}
+              </div>
+  
+              {% when 'video' %}
+              <div class="carousel__slide" data-src="{{ media | image_url}}" data-fancybox="gallery">
+                {{ media | video_tag: controls: true, class: 'bv_featured_midea', image_size: '450x' }}
+              </div>
+  
+              {% when 'model' %}
+              <div class="carousel__slide" data-src="{{ media | image_url}}" data-fancybox="">
+                {{ media | model_viewer_tag: image_size: '450x', class: 'bv_featured_midea', toggleable:
+                true, data-model-id: media.id }}
+              </div>
+  
+              {% else %}
+              <div class="carousel__slide" data-src="{{ media | image_url}}" data-fancybox="gallery">
+                {{ media | media_tag: class: 'media-item', image_size: image_size }}
+              </div>
+  
+              {% endcase %}
+              {% endfor %}
+            </div>
+          </div>
+  
+          <div class="thumbCarousel_container">
+            <div id="thumbCarousel" class="carousel max-w-xl mx-auto">
+              {% for media in product.media %}
+  
+              <div class="carousel__slide">
+                <img src="{{ media.preview_image | image_url  }}" alt="" width="80" height="80" class="panzoom__content">
+              </div>
+  
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+  
+        {{ 'fancybox.js' | asset_url | script_tag }}
+      </div>
+      <div class="bv_product_dicsription">
+        {%- for block in section.blocks -%}
+        {%- case block.type -%}
+        {%- when '@app' -%}
+        {% render block %}
+  
+        {% endcase %}
+        {% endfor %}
+        <h1 class="bv_pTile">{{ product.title}}</h1>
+        <p class="bv_pSKU">
+          Product SKU:
+          <span class="variant_sku" id="bv_sku">{{ current_variant.sku }}</span>
+        </p>
+        <div id="bv_stock">
+          {% if current_variant.available %}
+          <svg class="icon icon-checkbox-checked" height="32" version="1.1" viewbox="0 0 32 32" width="32"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M28 0h-24c-2.2 0-4 1.8-4 4v24c0 2.2 1.8 4 4 4h24c2.2 0 4-1.8 4-4v-24c0-2.2-1.8-4-4-4zM14 24.828l-7.414-7.414 2.828-2.828 4.586 4.586 9.586-9.586 2.828 2.828-12.414 12.414z">
+            </path>
+          </svg>&nbsp;
+          <span> In Stock</span>
+          {% else %}
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0px" y="0px" width="18" viewBox="0 0 122.879 122.879" enable-background="new 0 0 122.879 122.879"
+            xml:space="preserve">
+            <g>
+              <path fill-rule="evenodd" clip-rule="evenodd" fill="#FF4141"
+                d="M61.44,0c33.933,0,61.439,27.507,61.439,61.439 s-27.506,61.439-61.439,61.439C27.507,122.879,0,95.372,0,61.439S27.507,0,61.44,0L61.44,0z M73.451,39.151 c2.75-2.793,7.221-2.805,9.986-0.027c2.764,2.776,2.775,7.292,0.027,10.083L71.4,61.445l12.076,12.249 c2.729,2.77,2.689,7.257-0.08,10.022c-2.773,2.765-7.23,2.758-9.955-0.013L61.446,71.54L49.428,83.728 c-2.75,2.793-7.22,2.805-9.986,0.027c-2.763-2.776-2.776-7.293-0.027-10.084L51.48,61.434L39.403,49.185 c-2.728-2.769-2.689-7.256,0.082-10.022c2.772-2.765,7.229-2.758,9.953,0.013l11.997,12.165L73.451,39.151L73.451,39.151z" />
+            </g>
+          </svg> &nbsp;<span> Out of Stock</span>
+          {%- endif -%}
+        </div>
+        <span class="bv_br"></span>
+        {% if section.settings.show_more_info %}
+  
+        <div class="excerpt">
+          {{- section.settings.custom_description_field -}}
+        </div>
+        <span class="bv_br"></span>
+        {% endif %}
+  
+  
+        {% if section.settings.show_more_description %}
+  
+        <div class="excerpt">
+          {{ product.description}}
+        </div>
+        <span class="bv_br"></span>
+        {% endif %}
+  
+        <h4 class="bv_variant_price" id="bv_varient_price">{{ current_variant.price | money_with_currency }}</h4>
+  
+        <form action="/cart/add" enctype="multipart/form-data" method="post">
+          {{ form | payment_terms }}
+  
+          {% unless product.has_only_default_variant %}
+          <div id="bv_all_options" class="bv_product-form__controls-group">
+            {% for option in product.options_with_values %}
+            <div class="bv_option_container">
+              <label for="SingleOptionSelector-{{ forloop.index0 }}">
+                {{ option.name }}
+              </label>
+              <select class="single-option-selector-{{ section.id }} bv_product-form__input"
+                id="SingleOptionSelector-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
+                {% for value in option.values %}
+                <option value="{{ value | escape }}" {% if option.selected_value==value %} selected="selected" {% endif
+                  %}>{{ value }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            {% endfor %}
+          </div>
+          {% endunless %}
+  
+          <select class="bv_varient_select bv_hidden" id="bv_varient_selector" onchange="bv_Varient_change(this)"
+            name="id">
+            {% for variant in product.variants %}
+            {% if variant.available == true %}
+            <option value="{{variant.id}}" data-varient_price="{{- variant.price | money_with_currency -}}" data-available="available"
+              id="varient{{variant.id}}" {%- if variant==current_variant %} selected="selected" {%- endif -%}>{{
+              variant.title }}</option>
+            {% else %}
+            <option value="{{variant.id}}" id="varient{{variant.id}}" disabled="disabled" data-available="disabled"
+              data-varient_price="{{- variant.price | money_with_currency -}}">{{ variant.title }}</option>
+            {% endif %}
+            {% endfor %}
+          </select>
+  
+  
+          <br>
+          <div class="bv_product_add_to_cart">
+  
+            <label for="Quantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
+            <div class="">
+              <input class="bv_product_quantity" data-quantity-input id="Quantity-{{ section.id }}" min="1"
+                name="quantity" pattern="[0-9]*" type="number" value="1">
+              <input class="bv_btn bv_add_to_cart_btn" id="add" name="add" type="submit" value="Add to Cart">
+            </div>
+  
+          </div>
+        </form>
+  
+        <div >
+          
+  
+            {%- for block in section.blocks -%}
+            {%- case block.type -%}
+            {%- when 'checkbox' -%}
+            
+            {%- comment -%}
+            {% if block.settings.showDescriptionBelow %}
+            <div class="bv_description">
+              {{ product.description}}
+            </div>
+            {% endif %}
+            {%- endcomment -%}
+  
+            {%- when 'custom_liquid' -%}
+            {{ block.settings.custom_liquid }}
+            {% endcase%}
+            {% endfor%}
+            <div class="bv_downloadable">
+              {%- for block in section.blocks -%}
+              {% if block.settings.downloadable_title %}
+                 <h3><center>{{ block.settings.downloadable_title }}</center></h3>
+              {% endif %}
+              {% endfor%}
+              <div class="bv_downloadable_img">
+  <!-- use meta data -->
+                {% if product.metafields.product.downloadable_icon1.value %}
+                    <a download target="_blank" href="//{{ product.metafields.product.downloadable_file1 | metafield_text }}">
+                      <img alt="" src="{{ product.metafields.product.downloadable_icon1.value | image_url }}" width="150" height="150">
+                    </a>
+                {% endif %}
+                {% if product.metafields.custom.downloadable_icon2.value %}
+                    <a download target="_blank" href="//{{ product.metafields.custom.downloadable_file2 | metafield_text }}">
+                      <img alt="" src="{{ product.metafields.custom.downloadable_icon2.value | image_url }}" width="150" height="150">
+                    </a>
+                {% endif %}
+                {% if product.metafields.custom.downloadable_icon3.value %}
+                    <a download target="_blank" href="//{{ product.metafields.custom.downloadable_file3 | metafield_text }}">
+                      <img alt="" src="{{ product.metafields.custom.downloadable_icon3.value | image_url }}" width="150" height="150">
+                    </a>
+                {% endif %}
+  
+  
+                  
+  <!-- use meta data -->
+            {%- for block in section.blocks -%}
+            {%- case block.type -%}
+            {%- when 'slide' -%}
+  
+                {% if block.settings.downloadable_icon %}
+                <a target="_blank" href="{{ block.settings.downloadable_link }}">
+                  <img alt="" src="{{ block.settings.downloadable_icon | image_url }}"  width="150" height="150">
+                </a>
+                {%- elsif block.settings.downloadable_icon == blank -%}
+                <a>
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                </a>
+                {%- endif -%}
+            
+                
+                {% endcase %}
+                {% endfor %}
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  
+  {% if section.settings.show_description %}
+    <div class="bv_description">
+      {{ product.description}}
+    </div>
+  
+  {% endif %}
+  </div>
+  
+  
+  
+  
+  <script>
+    const product_data = {{ product | json }};
+  
+  </script>
+  {{ 'bv_product.js' | asset_url | script_tag }}
+  
+  {% schema %}
+  
+  {
+      "name": "bv_product_section",
+      "tag": "section",
+      "class": "bv_product_section",
+      "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_more_description",
+      "default": true,
+        "label": "show description"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_more_info",
+       "default": false,
+        "label": "Add extra info"
+      },
+      {
+              "type": "html",
+              "id": "custom_description_field",
+              "label": "Add more info ",
+              "default": "Our Top Product",
+              "info": " Please add your text here. from the customizer"
+          },
+          {
+              "type": "checkbox",
+              "id": "show_description",
+              "label": "Show product description at the bottom"
+          }
+      ],
+      "max_blocks": 6,
+      "blocks": [{
+              "type": "@app"
+          },
+          {
+              "type": "custom_liquid",
+              "name": " custom_liquid",
+        "limit": 1,
+              "settings": [{
+                  "type": "liquid",
+                  "id": "custom_liquid",
+                  "label": "custom_liquid"
+              }]
+          },
+      {
+       "type": "header",
+       "name": "Downloadable title",
+        "limit": 1,
+       "settings": [
+        {
+         "type": "text",
+         "id": "downloadable_title",
+        "default": "Downloadable title",
+         "label": "Add title for downloadable"
+        }
+       ]
+      },
+          {
+              "name": "Downloadable",
+              "type": "slide",
+        "limit": 6,
+              "settings": [{
+                      "type": "image_picker",
+                      "id": "downloadable_icon",
+                      "label": "icon"
+                  },
+                  {
+                      "type": "url",
+                      "id": "downloadable_link",
+                      "label": "File link"
+                  }
+              ]
+          }
+      ],
+      "presets": [{
+          "name": "bv_product_section",
+          "settings": {},
+          "blocks": [{
+                  "type": "slide",
+                  "settings": {
+                      "downloadable_icon": ""
+                  }
+              },
+              {
+                  "type": "slide",
+                  "settings": {
+                      "downloadable_icon": ""
+                  }
+              },
+              {
+                  "type": "slide",
+                  "settings": {
+                      "downloadable_icon": ""
+                  }
+              }
+          ]
+      }],
+      "locales": {
+          "en": {
+              "title": "bv_product_section"
+          },
+          "fr": {
+              "title": "bv_product_section"
+          }
+      },
+      "templates": [
+          "product"
+      ]
+  }
+  {% endschema %}
