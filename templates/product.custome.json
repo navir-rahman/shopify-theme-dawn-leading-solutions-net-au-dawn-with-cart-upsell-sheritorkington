@@ -1,7 +1,7 @@
 {
   "sections": {
     "main": {
-      "type": "main-product",
+      "type": "custom-product-template",
       "blocks": {
         "vendor": {
           "type": "text",
