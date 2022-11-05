@@ -42,22 +42,6 @@
             "show_dynamic_checkout": true
           }
         },
-        "8d7f119d-b606-4627-9d43-2ccf9826e9d0": {
-          "type": "collapsible_tab1",
-          "settings": {
-            "Downloadableheading1": "Spec Sheet",
-            "content1": "<p><strong>Spec Sheet<\/strong><\/p>",
-            "icon1": "check_mark"
-          }
-        },
-        "44ccc7e5-bc1d-463a-91c1-a2e9a6d5e4ef": {
-          "type": "collapsible_tab2",
-          "settings": {
-            "Downloadableheading2": "Assembly Guide",
-            "content2": "<p>Assembly Guide<\/p>",
-            "icon2": "check_mark"
-          }
-        },
         "collapsible-row-1": {
           "type": "collapsible_tab",
           "settings": {
@@ -93,8 +77,6 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "8d7f119d-b606-4627-9d43-2ccf9826e9d0",
-        "44ccc7e5-bc1d-463a-91c1-a2e9a6d5e4ef",
         "collapsible-row-1",
         "e3a9d649-0394-4323-aa52-d84fc31887f1",
         "fa62af69-7350-44ce-a20a-4f3823dbb433",
